@@ -1,0 +1,95 @@
+{
+  "name": "devaid",
+  "displayName": "DevAid",
+  "description": "DevAid is an AI-powered coding assistant that helps developers explore, understand, and debug code repositories using Claude.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.106.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devaid.openChat",
+        "title": "DevAid: Open Chat on Right",
+        "icon": "$(comment-discussion)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "devaid.openChat",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devaid-sidebar",
+          "title": "DevAid",
+          "icon": "media/devaid.svg"
+        }
+      ]
+    },
+    "views": {
+      "devaid-sidebar": [
+        {
+          "type": "webview",
+          "id": "devaid.chatView",
+          "name": "DevAid Chat",
+          "icon": "media/devaid.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "DevAid",
+      "properties": {
+        "devaid.backendPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the DevAid Python backend project."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "24.x",
+    "@types/vscode": "^1.106.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.5.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.17",
+    "marked": "^18.1.2"
+  }
+}
