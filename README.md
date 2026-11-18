@@ -15,7 +15,7 @@ Ask DevAid how a feature works, where something is defined, or what a file does.
 ## How it works
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[VS Code chat panel] -->|question + repository path| B[TypeScript extension]
     B -->|JSON over stdin| C[Python bridge]
     C --> D[Agent loop]
